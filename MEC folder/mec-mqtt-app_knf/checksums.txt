@@ -1,1 +1,0 @@
-8ecf54b44fd4d7483a23b70dbf6d15b8  mec-mqtt-app_knf.yaml
