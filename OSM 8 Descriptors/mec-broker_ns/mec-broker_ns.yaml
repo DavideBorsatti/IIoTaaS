@@ -1,0 +1,22 @@
+nsd-catalog:
+  nsd:
+  - constituent-vnfd:
+    - member-vnf-index: mec-broker
+      vnfd-id-ref: mec-broker_knf
+    description: NS consisting of a single KNF mec-broker_knf connected to mgmt network
+    id: mec-broker_ns
+    logo: osm.png
+    name: mec-broker_ns
+    short-name: mec-broker_ns
+    vendor: OSM
+    version: '1.0'
+    vld:
+    - id: mgmtnet
+      mgmt-network: 'true'
+      name: mgmtnet
+      type: ELAN
+      vim-network-name: mgmtnet
+      vnfd-connection-point-ref:
+      - member-vnf-index-ref: mec-broker
+        vnfd-connection-point-ref: mgmt
+        vnfd-id-ref: mec-broker_knf

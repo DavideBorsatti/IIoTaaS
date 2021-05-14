@@ -1,0 +1,20 @@
+vnfd-catalog:
+  schema-version: '3.0'
+  vnfd:
+  - connection-point:
+    - name: mgmt
+    description: KNF for deploying MCS test config
+    id: mec-mqtt-app_knf
+    k8s-cluster:
+      nets:
+      - external-connection-point-ref: mgmt
+        id: mgmtnet
+    kdu:
+    - helm-chart: chartmuseum/mec-mqtt-app
+      name: mec-mqtt-app
+    mgmt-interface:
+      cp: mgmt
+    name: mec-mqtt-app_knf
+    short-name: mec-mqtt-app_knf
+    vendor: Unibo
+    version: '1.0'
