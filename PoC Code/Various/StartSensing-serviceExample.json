@@ -1,0 +1,38 @@
+{
+    "serInstanceId": "ServiceInstance123",
+    "serName": "ExampleService",
+    "serCategory": {
+      "href": "/example/catalogue1",
+      "id": "id12345",
+      "name": "RNI",
+      "version": "version1"
+    },
+    "version": "ServiceVersion1",
+    "state": "ACTIVE",
+    "transportInfo": {
+      "id": "MqttPubId01",
+      "name": "Start Sensing",
+      "description": "Start Sensing",
+      "type": "REST_HTTP",
+      "protocol": "HTTP",
+      "version": "2.0",
+      "endpoint": {
+        "addresses":[{
+          "uris":"/start-sensing"
+        }]  
+      },
+      "security": {
+        "oAuth2Info": {
+          "grantTypes": [
+            "OAUTH2_CLIENT_CREDENTIALS"
+          ],
+          "tokenEndpoint": "/mecSerMgmtApi/security/TokenEndPoint"
+        }
+      },
+      "implSpecificInfo": {}
+    },
+    "serializer": "JSON",
+    "scopeOfLocality": "MEC_SYSTEM",
+    "consumedLocalOnly": false,
+    "isLocal": true
+  }
