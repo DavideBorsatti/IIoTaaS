@@ -1,6 +1,4 @@
 The helm packages can be built using:
-+
-.................
-$ helm package PACKAGE_DIRECTORY
-.................
-+
+```bash
+$ sudo apt-get install docker.io
+```
