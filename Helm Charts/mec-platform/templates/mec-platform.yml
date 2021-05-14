@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mec-platform
+  labels:
+    app: mec-platform
+spec:
+  containers:
+    - name: mec-platform-1
+      image: unibo-test-mec-mec
+      ports:
+        - containerPort: 80
+      env:
+        # Application instance identifier
+        - name: APP_INSTANCE_ID
+          value: "997fc80a-cfc1-498a-b77f-608f09506e88" 
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace                    
+      imagePullPolicy: IfNotPresent
+  nodeSelector:
+    project: mec
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mec-platform
+spec:
+        #type: NodePort
+  type: LoadBalancer
+  selector:
+    app: mec-platform
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080

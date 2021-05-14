@@ -1,0 +1,46 @@
+---
+{{ $randNum := randNumeric 3 }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mec-mqtt-app-{{$randNum}}
+  labels:
+    app: mec-mqtt-app-{{$randNum}}
+spec:
+  containers:
+    - name: mec-mqtt-app-1
+      image: unibo-test-mec-application
+      ports:
+        - containerPort: 80
+      env:
+        # MEC Platform endpoint
+        - name: MEC_BASE
+          value: "http://mec-platform.mec.mec.host"
+        # Application instance identifier
+        - name: APP_INSTANCE_ID
+          value: "997fc80a-cfc1-498a-b77f-608f09506e86"
+        - name: INFRA
+          value: "k8s"
+        - name: MY_POD_NAME
+          value: "mec-mqtt-app-{{$randNum}}"
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace                  
+      imagePullPolicy: IfNotPresent
+  nodeSelector:
+    project: mec
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mec-mqtt-app-{{$randNum}}
+spec:
+  #type: NodePort
+  type: LoadBalancer
+  selector:
+    app: mec-mqtt-app-{{$randNum}}
+  ports:
+    - port: 80
+      targetPort: 80
+      #nodePort: 30081

@@ -1,0 +1,46 @@
+---
+{{ $randNum := randNumeric 3 }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mqtt-broker-{{$randNum}}
+  labels:
+    app: mqtt-broker-{{$randNum}}
+spec:
+  #hostNetwork: true
+  #dnsPolicy: ClusterFirstWithHostNet
+  containers:
+    - name: mqtt-broker-1
+      image: mosquitto-mec
+      env:
+        # MEC Platform endpoint
+        - name: MEC_BASE
+          value: "http://mec-platform.mec.mec.host"
+        - name: INFRA
+          value: "k8s"  
+        - name: MY_POD_NAME
+          value: "mqtt-broker-{{$randNum}}"
+        - name: SINK_ADDRESS
+          value: {{ .Values.sinkAddress | quote}}
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace        
+      ports:
+        - containerPort: 1883
+      imagePullPolicy: IfNotPresent
+  nodeSelector:
+    project: mec
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mqtt-broker-{{$randNum}}
+spec:
+  type: LoadBalancer
+  selector:
+    app: mqtt-broker-{{$randNum}}
+  ports:
+    - port: 1883
+      targetPort: 1883
+

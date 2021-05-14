@@ -1,0 +1,11 @@
+# Default values for mec-app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+#This name will be used as MEC Service Endpoint
+serviceName: win
+
+sinkAddress: "10.15.1.161"
+
+nodeSelector: {}
+
